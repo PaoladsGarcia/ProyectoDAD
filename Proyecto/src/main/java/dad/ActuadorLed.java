@@ -7,17 +7,18 @@ public class ActuadorLed {
 	
 	private Integer idLed;
 	private Integer intensidad;
-	private Calendar timeStamp; // para guardar cuando hacemos cambio con actuador
+	private Long timeStamp; // para guardar cuando hacemos cambio con actuador
 	
 	
 	
 	
 	public ActuadorLed() {
 		super();
+		this.timeStamp= Calendar.getInstance().getTimeInMillis();
 	}
 
 
-	public ActuadorLed(Integer idLed, Integer intensidad, Calendar timeStamp) {
+	public ActuadorLed(Integer idLed, Integer intensidad, Long timeStamp) {
 		super();
 		this.idLed = idLed;
 		this.intensidad = intensidad;
@@ -45,12 +46,12 @@ public class ActuadorLed {
 	}
 
 
-	public Calendar getTimeStamp() {
+	public Long getTimeStamp() {
 		return timeStamp;
 	}
 
 
-	public void setTimeStamp(Calendar timeStamp) {
+	public void setTimeStamp(Long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 
