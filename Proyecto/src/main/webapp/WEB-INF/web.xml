@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  -->
+<web-app >
+	<display-name>asd</display-name>
+	<servlet>
+		<servlet-name>ServletSimple</servlet-name>
+		<servlet-class>es.us.lsi.dad.ServletSimple</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>LuminosityLogin</servlet-name>
+		<servlet-class>dad.LuminosityLogin</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ServletSimple</servlet-name>
+		<url-pattern>/ServletSimple</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>LuminosityLogin</servlet-name>
+		<url-pattern>/LuminosityLogin</url-pattern>
+	</servlet-mapping>
+</web-app>
