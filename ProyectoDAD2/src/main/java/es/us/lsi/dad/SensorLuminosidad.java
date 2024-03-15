@@ -18,6 +18,7 @@ public class SensorLuminosidad {
 	}
 
 
+
 	public SensorLuminosidad(Integer idSensor, Double intesidad, Calendar timeStamp) {
 		super();
 		this.idSensor = idSensor;
@@ -36,12 +37,12 @@ public class SensorLuminosidad {
 	}
 
 
-	public Double getIntesidad() {
+	public Double getLuminosidad() {
 		return luminosidad;
 	}
 
 
-	public void setIntesidad(Double intesidad) {
+	public void setLuminosidad(Double intesidad) {
 		this.luminosidad = intesidad;
 	}
 

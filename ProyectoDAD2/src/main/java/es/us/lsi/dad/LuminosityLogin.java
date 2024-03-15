@@ -17,19 +17,18 @@ public class LuminosityLogin extends HttpServlet{
 	
 	private static final long serialVersionUID = -6201150158950823811L;
 
-	private Map<String, String> userPass;
+	private Map<Integer, Double> userPass;
 
 	public void init() throws ServletException {
-		userPass = new HashMap<String, String>();
-		userPass.put("luismi", "1234");
+		userPass = new HashMap<Integer, Double>();
+		userPass.put(1, 435.);
 		super.init();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String user = req.getParameter("user");
-		String pass = req.getParameter("password");
-		if (userPass.containsKey(user) && userPass.get(user).equals(pass)) {
+		Integer id = Integer.valueOf(req.getParameter("idSensor"));
+		if (userPass.containsKey(id)) {
 			response(resp, "login ok");
 		} else {
 			response(resp, "invalid login");
@@ -41,14 +40,14 @@ public class LuminosityLogin extends HttpServlet{
 	    BufferedReader reader = req.getReader();
 	    
 	    Gson gson = new Gson();
-		User user = gson.fromJson(reader, User.class);
-		if (!user.getPassword().equals("") && !user.getUser().equals("")) {
-			userPass.put(user.getUser(), user.getPassword());
+	    SensorLuminosidad user = gson.fromJson(reader, SensorLuminosidad.class);
+		if (!user.getIdSensor().equals(null) && !user.getLuminosidad().equals(null)) {
+			userPass.put(user.getIdSensor(), user.getLuminosidad());
 			resp.getWriter().println(gson.toJson(user));
 			resp.setStatus(201);
 		}else{
 			resp.setStatus(300);
-			response(resp, "Wrong user and password");
+			response(resp, "Fallo");
 		}
 	   
 	}
@@ -56,6 +55,30 @@ public class LuminosityLogin extends HttpServlet{
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    BufferedReader reader = req.getReader();
+	    
+	    Gson gson = new Gson();
+	    SensorLuminosidad user = gson.fromJson(reader, SensorLuminosidad.class);
+		if (!user.getIdSensor().equals(null) && !user.getLuminosidad().equals(null) 
+				&& userPass.containsKey(user.getIdSensor()) 
+				&& userPass.get(user.getIdSensor()).equals(user.getLuminosidad())) {
+			userPass.remove(user.getIdSensor());
+			resp.getWriter().println(gson.toJson(user));
+			resp.setStatus(201);
+		}else{
+			resp.setStatus(300);
+			response(resp, "Fallo");
+		}
+	   
+	}
+
+	private void response(HttpServletResponse resp, String msg) throws IOException {
+		PrintWriter out = resp.getWriter();
+		out.println("<html>");
+		out.println("<body>");
+		out.println("<t1>" + msg + "</t1>");
+		out.println("</body>");
+		out.println("</html>");
+	}
 	
 	
 }
